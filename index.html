@@ -1,0 +1,235 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset='utf-8' />
+		<title>Data Cost</title>
+		<link href='style/main.css' rel='stylesheet' type='text/css' />
+		<script type="text/javascript" src="scripts/Tangle.js"></script>
+
+		<!-- TangleKit -->
+		<link rel="stylesheet" href="TangleKit/TangleKit.css" type="text/css">
+		<script type="text/javascript" src="TangleKit/mootools.js"></script>
+		<script type="text/javascript" src="TangleKit/sprintf.js"></script>
+		<script type="text/javascript" src="TangleKit/BVTouchable.js"></script>
+		<script type="text/javascript" src="TangleKit/TangleKit.js"></script>
+	</head>
+
+	<body>
+		<div class='header'>
+			LB Data Cost
+		</div>
+
+		<div class='disclaimer'>
+			( Drag the green value to change them )
+		</div>
+		TODO: IN LBP TOO
+		<div id='container'>
+
+			<div class='section'>
+				The bundle price of 
+				$<span
+				data-var='bundle'
+				class='TKAdjustableNumberArr'
+				data-defaultIndex = '0'
+				data-values='10 ,17 ,23 ,39 ,59 ,79 ,99 ,119'></span>
+				let you use <span data-var='dataAmount'></span>GB per month (renewed every month.)
+				<br/>
+				Which amounts to:
+			</div>
+
+            <div class='centered_table'>
+                <table id='example_of_usage'>
+                    <tbody id='examples'></tbody>
+                </table>
+            </div>
+
+			<div class='section'>
+				This means you are paying $<span data-var='payingPer'>1</span> per
+				<span data-var='payingInMB' data-min='1' data-max='1024' data-step='1' class='TKAdjustableNumber' ></span>MB.
+			</div>
+
+			<div class='section'>
+				There's how the price changes per bundle.
+
+				<div class='bar'>
+                    <img id='bar-chart' src='graph.png' />
+				</div>
+			</div>
+
+			<div class='section'>
+				Bundles may allow to share your data amongst friends.
+				<br/>
+
+				For example if you were <span data-var='nbPersons' class='TKAdjustableNumber' data-min='2' data-max='4' data-step='1'></span> persons the bundle of <span data-var='dataAmount'></span>GB for $<span data-var='bundle'></span>
+				would amounts to $<span data-var='sharedBundle'></span> and <span data-var='sharedAmount'></span>GB per person (this takes in consideration the monthly transfer fees of $2 per person.)
+			</div>
+		</div>
+
+
+		<script>
+
+var allBundles = {
+    10: 0.48,
+    17: 1.5,
+    23: 5,
+    39: 10,
+    59: 20,
+    79: 30,
+    99: 40,
+    119: 60
+};
+
+var example_usage = {
+    'YT_360p' : {
+        'multiplier': 53, /*MBs*/
+        'icon': 'youtube.png',
+        'text': 'Youtube 360p 10min'
+    },
+    'TWT_1k' : {
+        'multiplier': 1.4,
+        'icon': 'twitter.png',
+        'text': '1000 Tweets'
+    },
+    'MVI_244p' : {
+        'multiplier': 300,
+        'icon': 'movie.png',
+        'text': '45 min episode 244p (normal quality)'
+    },
+    'MVI_720p' : {
+        'multiplier': 1024,
+        'icon': 'movie.png',
+        'text': '45 min episode 720p (high quality)'
+    },
+    'FB_UP' : {
+        'multiplier': 110,
+        'icon': 'facebook.png',
+        'text': 'Facebook update (110MB)'
+    },
+    'GGL' : {
+        'multiplier': 0.54,
+        'icon': 'google.png',
+        'text': 'Google search (term=Lebanon)'
+    },
+    'MSIC' : {
+        'multiplier': 7,
+        'icon': 'music.png',
+        'text': '3min song stream (360kbps normal quality)'
+    },
+    'FB_LOAD' : {
+        'multiplier': 7.5,
+        'icon': 'facebook.png',
+        'text': 'Facebook page load'
+    },
+    'FB_BROW' : {
+        'multiplier': 2.5,
+        'icon': 'facebook.png',
+        'text': '1min browsing facebook'
+    },
+    'TWIT_BROW': {
+        'multiplier': 1.7,
+        'icon': 'twitter.png',
+        'text': '1min browsing twitter'
+    },
+    'WHTSP': {
+        'multiplier': 46.5,
+        'icon': 'whatsapp.png',
+        'text': '15000 Whatsapp messages (not videos, nor audio)'
+    },
+    'SNPCHT': {
+        'multiplier': 0.168,
+        'icon': 'snapchat.png',
+        'text': 'Snapchat image (750x1334 camera size)'
+    },
+    'SNPCHT_V': {
+        'multiplier': 6.2,
+        'icon': 'snapchat.png',
+        'text': 'Snapchat video (10secs/1080p)'
+    },
+    'INST_BROW': {
+        'multiplier': 10.6,
+        'icon': 'instagram.png',
+        'text': 'Instagram 1min browsing'
+    },
+};
+
+
+window.onload = function(){
+	var model = {
+		initialize: function () {
+			this.bundle = 10;
+			this.dataAmount = allBundles[this.bundle];
+			this.payingInMB = 50;
+			this.payingPer = Number(
+					this.bundle/this.dataAmount/1024 * this.payingInMB).toFixed(3);
+			this.nbPersons = 2;
+			this.sharedBundle = Number(
+					(this.bundle+2*this.nbPersons)/this.nbPersons).toFixed(3);
+			this.sharedAmount = Number(
+				this.dataAmount/this.nbPersons).toFixed(3);
+			this.dynamic = 20;
+
+			for (var i in example_usage) {
+				this["dynamic_"+i] = Number(
+					example_usage[i].multiplier*(
+					(this.bundle/this.dataAmount)/1024)).toFixed(3);
+			}
+		},
+		update: function () {
+			this.dataAmount = allBundles[this.bundle];
+			this.payingPer = Number(
+					this.bundle/this.dataAmount/1024 * this.payingInMB).toFixed(3);
+			this.sharedBundle = Number(
+					(this.bundle+2*this.nbPersons)/this.nbPersons).toFixed(3);
+			this.sharedAmount = Number(
+					this.dataAmount/this.nbPersons).toFixed(3);
+			for (var i in example_usage) {
+				this["dynamic_"+i] = Number(
+					example_usage[i].multiplier*(
+					(this.bundle/this.dataAmount)/1024)).toFixed(3);
+			}
+		}
+	};
+
+	var c = document.getElementById('examples');
+	for (var i in example_usage) {
+		var tr = document.createElement("tr");
+		var td1 = document.createElement("td");
+		var td2 = document.createElement("td");
+		var td3 = document.createElement("td");
+		var ico = document.createElement("img");
+		var spn = document.createElement("span");
+		var spn2 = document.createElement("span");
+		ico.setAttribute("class", "usage_ico");
+		ico.setAttribute("src", "style/"+example_usage[i].icon);
+		td1.appendChild(ico);
+		td2.innerHTML = example_usage[i].text;
+		spn.setAttribute("data-var", "dynamic_"+i)
+		spn2.innerHTML = '$';
+		td3.appendChild(spn2);
+		td3.appendChild(spn);
+		tr.appendChild(td1);
+		tr.appendChild(td2);
+		tr.appendChild(td3);
+		c.appendChild(tr);
+	}
+
+	new Tangle(document.getElementById('container'), model);
+
+	var stage = function(sel, f){
+		var bb = document.querySelector(sel).getBoundingClientRect();
+		var trigger = bb.top + bb.height * 0.8;
+		d3.timer(function(){
+			if (window.scrollY + window.innerHeight > trigger){
+				f();
+				return true; // stop timer to avoid reanimating
+			}
+		})
+	}
+};
+
+		</script>
+
+
+	</body>
+</html>

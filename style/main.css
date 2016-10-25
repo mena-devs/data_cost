@@ -1,0 +1,152 @@
+/* Style */
+
+/* latin */
+@font-face {
+	font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 300;
+	src: local('Raleway Light'), local('Raleway-Light'), url(https://fonts.gstatic.com/s/raleway/v9/-_Ctzj9b56b8RgXW8FArifk_vArhqVIZ0nv9q090hN8.woff2) format('woff2');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+#bar-chart {
+	margin-top: 30px;
+    margin-bottom: 30px;
+    max-width: 100%;
+}
+
+
+body {
+	margin: 0px;
+	padding: 0px;
+	font-family: 'Raleway';
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-family: "Raleway", "DejaVu Sans", 'sans-serif';
+	font-weight: 100;
+	word-wrap: break-word;
+}
+
+.header {
+	text-align: center;
+	padding: 0.6ex;
+	background-color: #303030;
+	color: #5F9093;
+	font-weight: thin;
+	box-shadow: 3px 3px 3px #303030;
+}
+
+.section {
+	width: 90%;
+	margin: auto;
+	margin-top: 2ex;
+	margin-bottom: 1ex;
+}
+
+.disclaimer {
+	font-size: 1ex;
+	text-align: center;
+	margin-top: 1ex;
+}
+
+#container {
+	max-width: 100%;
+	text-align: center;
+}
+
+
+#example_of_usage {
+    margin: auto;
+    position: relative;
+	font-size: 24px;
+}
+
+.centered_table {
+	text-align: center;
+    max-height: 15em;
+    overflow-y: scroll;
+    margin: auto;
+    width: 90%;
+}
+
+tr {
+    margin-left: 60px;
+}
+
+.usage_ico {
+	width: 60px;
+	height: 60px;
+}
+
+body {
+	font-size: 32px;
+	background-color: ghostwhite;
+}
+
+/* TKAdjustableNumber */
+
+.TKAdjustableNumberArr {
+	position:relative;
+	color: #5F9093;
+	border-bottom: 1px dashed #5F9093;
+	font-weight: bold;
+}
+
+.TKAdjustableNumberHoverArr {
+}
+
+.TKAdjustableNumberDownArr {
+	color: #91DBDF;
+	border-bottom: 1px dashed #91DBDF;
+	font-weight: bold;
+}
+
+.TKAdjustableNumberHelpArr {
+	position:absolute;
+	color: #212121;
+	font-family: "Helvetica-Neue", "Arial", sans-serif;
+}
+
+
+/* cursor */
+
+.TKCursorDragHorizontal {
+	cursor: pointer;
+	cursor: move;
+	cursor: col-resize;
+}
+
+
+/* TKToggle */
+
+.TKToggle {
+	color: #46f;
+	border-bottom: 1px dashed #46f;
+	cursor: pointer;
+}
+
+
+/* TKAdjustableNumber */
+
+.TKAdjustableNumber {
+	position:relative;
+	color: #5F9093;
+	font-weight: bold;
+	border-bottom: 1px dashed #5F9093;
+}
+
+.TKAdjustableNumberHover {
+}
+
+.TKAdjustableNumberDown {
+	color: #91DBDF;
+	font-weight: bold;
+	border-bottom: 1px dashed #91DBDF;
+}
+
+.TKAdjustableNumberHelp {
+	position:absolute;
+	color: #212121;
+    font-family: "Helvetica-Neue", "Arial", sans-serif;
+}
+
