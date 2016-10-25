@@ -8,6 +8,7 @@ A simple explorable tool to choose and compare data plans in Lebanon.
 * More mobile friendly
 * Lebanese Pound equivalent
 * Comparison with other worldwide operators
+* use d3.js for a dynamic graph
 
 ## POC ##
 
